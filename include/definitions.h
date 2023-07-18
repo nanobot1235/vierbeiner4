@@ -11,29 +11,42 @@
 #define Debug false
 #define DebugMPU false
 #define DebugServo false
-#define DebugLeg true
+#define DebugLeg false
 #define DebugBody false
 #define DebugCoords false
 
+#define Servo90 true
+
+//Servo mapping
+	#define map1_1 65
+	#define map1_2 430
+
+	#define map2_1 120
+	#define map2_2 370
+
 
 //body size:
-	#define LegsegmentLength 200    //?
-	#define LegsegmentLengthSq 40000  //?               //LegsegmentLength*LegsegmentLength
-	#define shoulderOffset 22.5
-	#define shoulderToCenter_x 300 //?
-	#define shoulderToCenter_y 150  //?
-	#define shoulderToCenterDiagonal      335.41//?   //sqrt(sq(shoulderToCenter_x) + sq(shoulderToCenter_y))
-	#define shoulderToCenterDiagonalAngel 63.434//?   //atan2(shoulderToCenter_x/shoulderToCenter_y)
-	#define minLowerLegAngel 10 //?                   //the minimum angel that the lower leg kann be to the ground
-	#define LegMin  130.0
-	#define LegMax  397.5
-	#define normalHight 282.84
-	#define stepHight 100
-	#define stepLength 200
+	#define thighLength 76    //?
+	#define thighLengthSq 5776  //?               //LegsegmentLength*LegsegmentLength
+	#define lowerlegLength 76    //?
+	#define lowerlegLengthSq 5776  //?               //LegsegmentLength*LegsegmentLength
+	#define sholuderToThighOffset 10				  //offset between the center of rotation for the shoulder and the center of rotation for the thigh
+	#define shoulderOffset 35.267
+	#define shoulderToCenter_x 123.5 //?
+	#define shoulderToCenter_y 65  //?
+	#define shoulderToCenterDiagonal      140.89//?   //sqrt(sq(shoulderToCenter_x) + sq(shoulderToCenter_y))
+	#define shoulderToCenterDiagonalAngel 62.5//?     //atan2(shoulderToCenter_x/shoulderToCenter_y)
+	#define minLowerLegAngel 3.1 //?                   //the minimum angel that the lower leg kann be to the ground
+	#define minLowerLegAngelSafty 2
+	#define LegMin  20.0
+	#define LegMax  167.5
+	#define normalHight 117.480
+	#define stepHight 25
+	#define stepLength 75
 
 //modes:
 	#define balanceMode 1
-	#define Speed 1.25  //mm/Millisekunden
+	#define Speed 0.5  //mm/Millisekunden
 	#define Speeddevide 1000000000
 
 

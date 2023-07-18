@@ -12,7 +12,6 @@ class Body {
 	double newleg_min[4];
 	double leg_length[4];
 	double orientation;
-	double safety = 2;
 	double coords[4][3];
 	double lastcoords[4][3];
 	unsigned long lastMove;
@@ -22,24 +21,36 @@ class Body {
 	}
 
 	void newleg_length(double coords[4][3]){
+ 
+		leg_length[0] = sqrt(sq(coords[0][0])   + sq(sqrt(sq(coords[0][1])  + sq(coords[0][2])) - sholuderToThighOffset))/2;
+		leg_length[1] = sqrt(sq(coords[1][0])   + sq(sqrt(sq(coords[1][1])  + sq(coords[1][2])) - sholuderToThighOffset))/2;
+		leg_length[2] = sqrt(sq(coords[2][0])   + sq(sqrt(sq(coords[2][1])  + sq(coords[2][2])) - sholuderToThighOffset))/2;
+		leg_length[3] = sqrt(sq(coords[3][0])   + sq(sqrt(sq(coords[3][1])  + sq(coords[3][2])) - sholuderToThighOffset))/2;
 
-		leg_length[0] = sqrt(sq(coords[0][0])   + sq(coords[0][1])  + sq(coords[0][2]))/2;
-		leg_length[1] = sqrt(sq(coords[1][0])   + sq(coords[1][1])  + sq(coords[1][2]))/2;
-		leg_length[2] = sqrt(sq(coords[2][0])   + sq(coords[2][1])  + sq(coords[2][2]))/2;
-		leg_length[3] = sqrt(sq(coords[3][0])   + sq(coords[3][1])  + sq(coords[3][2]))/2;
+		{
+			double L3 = (minLowerLegAngel+orientation+minLowerLegAngelSafty)*PI/180; //3
+			double sin3 = sin(L3); //3
+			double cos3 = cos(L3); //3
 
-		if (coords[0][0] < 0){
-			newleg_min[0] = sqrt(sq(coords[0][0]) + sq((sin((minLowerLegAngel+orientation+safety)*PI/180) * LegsegmentLength) + sqrt(sq(LegsegmentLength) - sq((cos((minLowerLegAngel+orientation+safety)*PI/180) * LegsegmentLength)+coords[0][0]))));
+			for(byte i = 0; i<4 ; i++){
+				if (coords[i][0] < 0){
+					newleg_min[0] = sqrt(
+										sq(coords[i][0]) //7²
+										+sq(
+											(sin3 * lowerlegLength) //2
+											+sqrt(
+												thighLengthSq 
+												-sq(
+													(cos3 * lowerlegLength) //1
+													+coords[i][0] //7
+												) //4²
+											) //5
+										) //6²
+									); //8 bzw. leglength
+				}
+			}
 		}
-		if (coords[1][0] < 0){
-			newleg_min[1] = sqrt(sq(coords[1][0]) + sq((sin((minLowerLegAngel+orientation+safety)*PI/180) * LegsegmentLength) + sqrt(sq(LegsegmentLength) - sq((cos((minLowerLegAngel+orientation+safety)*PI/180) * LegsegmentLength)+coords[1][0]))));
-		}
-		if (coords[2][0] < 0){
-			newleg_min[2] = sqrt(sq(coords[2][0]) + sq((sin((minLowerLegAngel+orientation+safety)*PI/180) * LegsegmentLength) + sqrt(sq(LegsegmentLength) - sq((cos((minLowerLegAngel+orientation+safety)*PI/180) * LegsegmentLength)+coords[2][0]))));
-		}
-		if (coords[3][0] < 0){
-			newleg_min[3] = sqrt(sq(coords[3][0]) + sq((sin((minLowerLegAngel+orientation+safety)*PI/180) * LegsegmentLength) + sqrt(sq(LegsegmentLength) - sq((cos((minLowerLegAngel+orientation+safety)*PI/180) * LegsegmentLength)+coords[3][0]))));
-		}
+
 
 		#if DebugBody
 			DebugSerial.println("leg_length:");
@@ -58,7 +69,7 @@ class Body {
 
 		leg_min = newleg_min[0];
 		for (double d : newleg_min){
-			leg_min= min(d, leg_min);
+			leg_min = min(d, leg_min);
 		}
 
 		double minVal = max(LegMin/2, leg_min/2);
@@ -174,21 +185,21 @@ class Body {
 			}
 		#endif
 
-		front_left .moveto_left (newcoords[0], leg_length[0]);
-		front_right.moveto_right(newcoords[1], leg_length[1]);
-		back_left  .moveto_left (newcoords[2], leg_length[2]);
-		back_right .moveto_right(newcoords[3], leg_length[3]);
+		front_left .moveto(newcoords[0], leg_length[0]);
+		front_right.moveto(newcoords[1], leg_length[1]);
+		back_left  .moveto(newcoords[2], leg_length[2]);
+		back_right .moveto(newcoords[3], leg_length[3]);
 	}
 
 	public:
 
-	void begin(float mapping[4],byte pins){
+	void begin(byte pins){
 		Servo::init();
 
-		front_left .begin(mapping, pins   );
-		front_right.begin(mapping, pins+=3);
-		back_left  .begin(mapping, pins+=3);
-		back_right .begin(mapping, pins+=3);
+		front_left .begin(pins   );
+		front_right.begin(pins+=3);
+		back_left  .begin(pins+=3);
+		back_right .begin(pins+=3);
 	}
 
 	boolean moveto(double newcoords[2][3], double balance[2], double maxspeed){

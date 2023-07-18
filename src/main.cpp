@@ -10,6 +10,11 @@ IOBT BT;
 
 MPU mpu2;
 
+#if Servo90
+	Servo calibrate0;
+	Servo calibrate90;
+	Servo calibrate180;
+#endif
 
 #if printTps
 	double tpsS[100];
@@ -17,7 +22,7 @@ MPU mpu2;
 #endif
 
 double coords[2][3] = {
-	{0, 0, normalHight},
+	{40, 0, normalHight},
 	{0, 0, 0}
 };
 
@@ -27,6 +32,12 @@ static void esploop1(void* pvParameters);
 void xTaskCreatePinnedToCore(void* pvParameters);
 
 void setup() {
+
+	#if Servo90
+		calibrate0  .begin(13);
+		calibrate90 .begin(14);
+		calibrate180.begin(15);
+	#endif
 
 	PC.begin(&Serial, 50);
 	BT.begin(&SerialBT, 50);
@@ -87,6 +98,13 @@ void walk(){
 #endif
 
 void loop() {
+
+	#if Servo90
+		calibrate0  .move1(0);
+		calibrate90 .move1(90);
+		calibrate180.move1(180);
+	#endif
+
 	PC.input(coords);
 	memcpy(myExchange.coords, PC.bodycoords, sizeof(myExchange.coords));
 	BT.input(coords);

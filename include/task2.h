@@ -1,7 +1,6 @@
 #include "Body.h"
 #include "core2.h"
 
-float map_1[] = {0, 180, 65, 430};
 
 double test[] = {0, 0, normalHight};
 
@@ -16,7 +15,7 @@ boolean goal;
 #endif
 
 void setup2(){
-	b1.begin(map_1, 0);
+	b1.begin(0);
 }
 
 byte n = 0;

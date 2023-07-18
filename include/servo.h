@@ -11,8 +11,6 @@ Adafruit_PWMServoDriver pwm;
 
 class Servo{
 	private:
-		float map[4];
-
 		byte pin;
 
 	public:
@@ -25,15 +23,26 @@ class Servo{
 			pwm.setPWMFreq(50);  // Analog servos run at ~50 Hz updates
 		}
 
-		void begin(float map[], byte pin){
+		void begin(byte pin){
 			this->pin = pin;
-			//this->map = map:
-				byte i = 4;
-				while ( i-- ) *(this->map + i) = *(map + i);
 		}
 
-		float move(float deg){
-			float out = map_f(deg, map[0], map[1], map[2], map[3]);
+		float move1(float deg){
+
+			float out = map_f(deg, 0, 180, map1_1, map1_2);
+			byte test = pwm.setPWM(pin, 0, out);
+
+			#if DebugServo
+				DebugSerial.print("   Servo response:");
+				DebugSerial.println(test);
+			#endif
+
+			return (((test == 0) * out) - (test*1000));
+		}
+
+		float move2(float deg){
+
+			float out = map_f(deg, 0, 180, map2_1, map2_2);
 			byte test = pwm.setPWM(pin, 0, out);
 
 			#if DebugServo
