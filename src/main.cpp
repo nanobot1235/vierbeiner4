@@ -22,7 +22,7 @@ MPU mpu2;
 #endif
 
 double coords[2][3] = {
-	{40, 0, normalHight},
+	{0, 0, normalHight},
 	{0, 0, 0}
 };
 
@@ -131,7 +131,7 @@ void loop() {
 		}
 	#endif
 
-	walk();
+	//walk();
 
 	//myExchange.coords = coords;
 	senseBalance();

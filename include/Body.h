@@ -113,7 +113,7 @@ class Body {
 
 		coords[0][2] = legcoords[0][2] + bodycoords[0][2] + rotation_length_for_z[0] + rotation_length_for_z[1];
 		coords[0][0] = legcoords[0][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[0][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];
-		coords[0][1] = legcoords[0][1] + (bodycoords[0][1]) - (shoulderOffset) - (sin(bodycoords[1][0]/180*PI)*(coords[0][2])) + sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];                       //the shoulderOffset is added to position the foot unter the shoulder
+		coords[0][1] = legcoords[0][1] + (bodycoords[0][1]) + (shoulderOffset) - (sin(bodycoords[1][0]/180*PI)*(coords[0][2])) + sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];                       //the shoulderOffset is added to position the foot unter the shoulder
 
 		coords[1][2] = legcoords[1][2] + bodycoords[0][2] + rotation_length_for_z[0] - rotation_length_for_z[1];
 		coords[1][0] = legcoords[1][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[1][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];
@@ -121,7 +121,7 @@ class Body {
 
 		coords[2][2] = legcoords[2][2] + bodycoords[0][2] - rotation_length_for_z[0] + rotation_length_for_z[1];
 		coords[2][0] = legcoords[2][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[2][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];
-		coords[2][1] = legcoords[2][1] + (bodycoords[0][1]*-1) + (shoulderOffset) + (sin(bodycoords[1][0]/180*PI)*(coords[2][2])) + (sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2]);                  //the shoulderOffset is added to position the foot unter the shoulder
+		coords[2][1] = legcoords[2][1] + (bodycoords[0][1]*-1) - (shoulderOffset) + (sin(bodycoords[1][0]/180*PI)*(coords[2][2])) + (sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2]);                  //the shoulderOffset is added to position the foot unter the shoulder
 
 		coords[3][2] = legcoords[3][2] + bodycoords[0][2] - rotation_length_for_z[0] - rotation_length_for_z[1];
 		coords[3][0] = legcoords[3][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[3][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];
@@ -185,10 +185,10 @@ class Body {
 			}
 		#endif
 
-		front_left .moveto(newcoords[0], leg_length[0]);
-		front_right.moveto(newcoords[1], leg_length[1]);
-		back_left  .moveto(newcoords[2], leg_length[2]);
-		back_right .moveto(newcoords[3], leg_length[3]);
+		front_left .moveto_left (newcoords[0], leg_length[0]);
+		front_right.moveto_right(newcoords[1], leg_length[1]);
+		back_left  .moveto_left (newcoords[2], leg_length[2]);
+		back_right .moveto_right(newcoords[3], leg_length[3]);
 	}
 
 	public:

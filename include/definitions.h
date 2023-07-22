@@ -11,7 +11,7 @@
 #define Debug false
 #define DebugMPU false
 #define DebugServo false
-#define DebugLeg false
+#define DebugLeg true
 #define DebugBody false
 #define DebugCoords false
 
@@ -28,8 +28,8 @@
 //body size:
 	#define thighLength 76    //?
 	#define thighLengthSq 5776  //?               //LegsegmentLength*LegsegmentLength
-	#define lowerlegLength 76    //?
-	#define lowerlegLengthSq 5776  //?               //LegsegmentLength*LegsegmentLength
+	#define lowerlegLength 100    //?
+	#define lowerlegLengthSq 10000  //?               //LegsegmentLength*LegsegmentLength
 	#define sholuderToThighOffset 10				  //offset between the center of rotation for the shoulder and the center of rotation for the thigh
 	#define shoulderOffset 35.267
 	#define shoulderToCenter_x 123.5 //?
