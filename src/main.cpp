@@ -6,7 +6,7 @@ TaskHandle_t task_loop1;
 exchange myExchange;
 
 IO PC;
-IOBT BT;
+IO BT;
 
 MPU mpu2;
 
@@ -40,11 +40,10 @@ void setup() {
 	#endif
 
 	PC.begin(&Serial, 50);
-	BT.begin(&SerialBT, 50);
+	BT.begin(&Serial2, 50);
 
-	// put your setup code here, to run once:
 	Serial.begin(115200);
-	SerialBT.begin("Vierbeiner3");
+	Serial2.begin(115200);
 
 	mpu2.setup(I2C_SDA, I2C_SCL);
 
@@ -52,8 +51,15 @@ void setup() {
 	myExchange = getNewExchange(&myExchange, false);
 
 	#if showTps
-		pinMode(17, OUTPUT);
+		pinMode(tpsPin, OUTPUT);
 	#endif
+
+	pinMode(setPin, OUTPUT);
+	pinMode(resetPin, OUTPUT);
+
+	digitalWrite(setPin, LOW);
+	digitalWrite(resetPin, HIGH);
+	digitalWrite(resetPin, LOW);
 
 	setupCore2();
 /*
@@ -126,8 +132,8 @@ void loop() {
 			DebugSerial.println(sum);
 		#endif
 		if (lastTps != tps) {
-			digitalWrite(17, tps);
-			lastTps = !lastTps;
+			digitalWrite(tpsPin, tps);
+			lastTps = tps;
 		}
 	#endif
 

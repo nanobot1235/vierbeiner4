@@ -1,11 +1,8 @@
 #include "HardwareSerial.h"
-#include "BluetoothSerial.h"
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 #include "definitions.h"
 #include "MPU.h"
-
-BluetoothSerial SerialBT;
 
 Adafruit_PWMServoDriver pwm;
 
