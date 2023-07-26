@@ -146,8 +146,8 @@ void loop() {
 
 void senseBalance(){
 	mpu2.average();
-	myExchange.MPU[0] = mpu2.pitch_average;
-	myExchange.MPU[1] = mpu2.roll_average;
+	myExchange.MPU[1] = mpu2.pitch_average;
+	myExchange.MPU[0] = mpu2.roll_average;
 }
 
 void setupCore2() {

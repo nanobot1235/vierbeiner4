@@ -17,7 +17,7 @@
 #define Debug false
 #define DebugMPU false
 #define DebugServo false
-#define DebugLeg true
+#define DebugLeg false
 #define DebugBody false
 #define DebugCoords false
 
@@ -37,7 +37,7 @@
 	#define lowerlegLength 100    //?
 	#define lowerlegLengthSq 10000  //?               //LegsegmentLength*LegsegmentLength
 	#define sholuderToThighOffset 10				  //offset between the center of rotation for the shoulder and the center of rotation for the thigh
-	#define shoulderOffset 35.267
+	#define shoulderOffset 35.267 * 0
 	#define shoulderToCenter_x 123.5 //?
 	#define shoulderToCenter_y 65  //?
 	#define shoulderToCenterDiagonal      140.89//?   //sqrt(sq(shoulderToCenter_x) + sq(shoulderToCenter_y))
@@ -46,7 +46,7 @@
 	#define minLowerLegAngelSafty 2
 	#define LegMin  20.0
 	#define LegMax  167.5
-	#define normalHight 117.480
+	#define normalHight 150
 	#define stepHight 25
 	#define stepLength 75
 
@@ -57,6 +57,8 @@
 
 
 //overides:
+
+
 	#if Debug
 		#define DebugMPU true
 		#define DebugServo true
