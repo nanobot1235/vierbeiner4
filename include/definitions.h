@@ -1,12 +1,18 @@
 
-#define I2C_SDA 21
+#define I2C_SDA 23
 #define I2C_SCL 22
 
 #define DebugSerial Serial
 
-#define showTps true
-#define printTps false
-#define targeTps 60
+//TPS
+	#define showTps true
+	#define printTps false
+	#define targeTps 60
+	#define tpsPin 18
+
+//Servo OE
+	#define setPin 27
+	#define resetPin 26
 
 #define Debug false
 #define DebugMPU false
