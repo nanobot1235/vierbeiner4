@@ -26,6 +26,8 @@ double coords[2][3] = {
 	{0, 0, 0}
 };
 
+double walk[3];
+
 void setupCore2();
 void senseBalance();
 static void esploop1(void* pvParameters);
@@ -54,6 +56,7 @@ void setup() {
 		pinMode(tpsPin, OUTPUT);
 	#endif
 
+	pinMode(sensePin, INPUT);
 	pinMode(setPin, OUTPUT);
 	pinMode(resetPin, OUTPUT);
 
@@ -64,39 +67,6 @@ void setup() {
 	setupCore2();
 /*
 	pwm.begin();*/
-}
-
-void walk(){
-	double motion[][4][3] ={
-		{
-			{ stepLength/2, 0, 0},
-			{-stepLength/3, 0,  - stepHight},
-			{-stepLength/3, 0,  - stepHight},
-			{ stepLength/2, 0, 0}
-		},
-		{
-			{ stepLength/3, 0,  - stepHight},
-			{-stepLength/2, 0, 0},
-			{-stepLength/2, 0, 0},
-			{ stepLength/3, 0,  - stepHight}
-		},
-		{
-			{-stepLength/3, 0,  - stepHight},
-			{ stepLength/2, 0, 0},
-			{ stepLength/2, 0, 0},
-			{-stepLength/3, 0,  - stepHight}
-		},
-		{
-			{-stepLength/2, 0, 0},
-			{ stepLength/3, 0,  - stepHight},
-			{ stepLength/3, 0,  - stepHight},
-			{-stepLength/2, 0, 0}
-		}
-	};
-
-	byte test = animate(sizeof(motion), myExchange.goal);
-	myExchange.goal = false;
-	memcpy(myExchange.legCoords, motion[test], sizeof(myExchange.legCoords));
 }
 
 #if showTps
@@ -111,10 +81,12 @@ void loop() {
 		calibrate180.move1(180);
 	#endif
 
-	PC.input(coords);
+	PC.input(coords, walk);
 	memcpy(myExchange.coords, PC.bodycoords, sizeof(myExchange.coords));
-	BT.input(coords);
+	memcpy(myExchange.walk, PC.walk, sizeof(myExchange.walk));
+	BT.input(coords, walk);
 	memcpy(myExchange.coords, BT.bodycoords, sizeof(myExchange.coords));
+	memcpy(myExchange.walk, BT.walk, sizeof(myExchange.walk));
 
 	#if showTps
 		boolean tps = myExchange.tps > (1000/targeTps);
@@ -136,8 +108,6 @@ void loop() {
 			lastTps = tps;
 		}
 	#endif
-
-	//walk();
 
 	//myExchange.coords = coords;
 	senseBalance();

@@ -111,21 +111,21 @@ class Body {
 			rotation_length_for_z[2] = (sin(bodycoords[1][2]/180*PI) * shoulderToCenterDiagonal) / cos(bodycoords[1][2]/2/180*PI);                              //calculate the amount of moment needed for rotating on the z axis
 		//end
 
-		coords[0][2] = legcoords[0][2] + bodycoords[0][2] + rotation_length_for_z[0] + rotation_length_for_z[1];
-		coords[0][0] = legcoords[0][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[0][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];
-		coords[0][1] = legcoords[0][1] + (bodycoords[0][1]) + (shoulderOffset) - (sin(bodycoords[1][0]/180*PI)*(coords[0][2])) + sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];                       //the shoulderOffset is added to position the foot unter the shoulder
+		coords[0][2] =  legcoords[0][2] + bodycoords[0][2] + rotation_length_for_z[0] + rotation_length_for_z[1];
+		coords[0][0] =  legcoords[0][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[0][2])) + cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];
+		coords[0][1] =  legcoords[0][1] + (bodycoords[0][1]) + (shoulderOffset) + (sin(bodycoords[1][0]/180*PI)*(coords[0][2])) - sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];                       //the shoulderOffset is added to position the foot unter the shoulder
 
-		coords[1][2] = legcoords[1][2] + bodycoords[0][2] + rotation_length_for_z[0] - rotation_length_for_z[1];
-		coords[1][0] = legcoords[1][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[1][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];
-		coords[1][1] = legcoords[1][1] + (bodycoords[0][1]) - (shoulderOffset) + (sin(bodycoords[1][0]/180*PI)*(coords[1][2])) + sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];                    //the shoulderOffset is added to position the foot unter the shoulder
+		coords[1][2] =  legcoords[1][2] + bodycoords[0][2] + rotation_length_for_z[0] - rotation_length_for_z[1];
+		coords[1][0] =  legcoords[1][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[1][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];
+		coords[1][1] =  legcoords[1][1] + (bodycoords[0][1]) - (shoulderOffset) + (sin(bodycoords[1][0]/180*PI)*(coords[1][2])) + sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];                    //the shoulderOffset is added to position the foot unter the shoulder
 
-		coords[2][2] = legcoords[2][2] + bodycoords[0][2] - rotation_length_for_z[0] + rotation_length_for_z[1];
-		coords[2][0] = legcoords[2][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[2][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];
-		coords[2][1] = legcoords[2][1] + (bodycoords[0][1]*-1) - (shoulderOffset) + (sin(bodycoords[1][0]/180*PI)*(coords[2][2])) + (sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2]);                  //the shoulderOffset is added to position the foot unter the shoulder
+		coords[2][2] =  legcoords[2][2] + bodycoords[0][2] - rotation_length_for_z[0] + rotation_length_for_z[1];
+		coords[2][0] =  legcoords[2][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[2][2])) + cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2];
+		coords[2][1] = -legcoords[2][1] + (bodycoords[0][1]*-1) - (shoulderOffset) - (sin(bodycoords[1][0]/180*PI)*(coords[2][2])) - (sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)/180*PI) * rotation_length_for_z[2]);                  //the shoulderOffset is added to position the foot unter the shoulder
 
-		coords[3][2] = legcoords[3][2] + bodycoords[0][2] - rotation_length_for_z[0] - rotation_length_for_z[1];
-		coords[3][0] = legcoords[3][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[3][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];
-		coords[3][1] = legcoords[3][1] + (bodycoords[0][1]*-1) + (shoulderOffset) - (sin(bodycoords[1][0]/180*PI)*(coords[3][2])) + sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];                 //the shoulderOffset is added to position the foot unter the shoulder
+		coords[3][2] =  legcoords[3][2] + bodycoords[0][2] - rotation_length_for_z[0] - rotation_length_for_z[1];
+		coords[3][0] =  legcoords[3][0] + bodycoords[0][0] + (sin(bodycoords[1][1]/180*PI)*(coords[3][2])) - cos((shoulderToCenterDiagonalAngel - bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];
+		coords[3][1] = -legcoords[3][1] + (bodycoords[0][1]*-1) + (shoulderOffset) - (sin(bodycoords[1][0]/180*PI)*(coords[3][2])) + sin((shoulderToCenterDiagonalAngel + bodycoords[1][2]/2)*-1/180*PI) * rotation_length_for_z[2];                 //the shoulderOffset is added to position the foot unter the shoulder
 
 
 

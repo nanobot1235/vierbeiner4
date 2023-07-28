@@ -20,39 +20,60 @@ void setup2(){
 
 byte n = 0;
 
-void moveServos(){
+void walking(double stepLength){
 
 	double motion[][4][3] ={
 		{
-			{ stepLength/2, 0, 0},
-			{-stepLength/4, 0,  - stepHight},
-			{-stepLength/4, 0,  - stepHight},
-			{ stepLength/2, 0, 0}
+			{ 0, 0,  - stepHight},
+			{ stepLength/3, 0, 0},
+			{			 0, 0, 0},
+			{-stepLength/3, 0, 0}
 		},
 		{
-			{ stepLength/4, 0,  - stepHight},
-			{-stepLength/2, 0, 0},
-			{-stepLength/2, 0, 0},
-			{ stepLength/4, 0,  - stepHight}
+			{-stepLength/2, -balence_offset, 0},
+			{ stepLength/2, -balence_offset, 0},
+			{ stepLength/6, -balence_offset, 0},
+			{-stepLength/6, -balence_offset, 0}
 		},
 		{
-			{-stepLength/4, 0,  - stepHight},
-			{ stepLength/2, 0, 0},
-			{ stepLength/2, 0, 0},
-			{-stepLength/4, 0,  - stepHight}
+			{-stepLength/3, 0, 0},
+			{ 0, 0,  - stepHight},
+			{ stepLength/3, 0, 0},
+			{			 0, 0, 0}
 		},
 		{
-			{-stepLength/2, 0, 0},
-			{ stepLength/4, 0,  - stepHight},
-			{ stepLength/4, 0,  - stepHight},
-			{-stepLength/2, 0, 0}
+			{-stepLength/6, balence_offset, 0},
+			{-stepLength/2, balence_offset, 0},
+			{ stepLength/2, balence_offset, 0},
+			{ stepLength/6, balence_offset, 0}
+		},
+		{
+			{			 0, 0, 0},
+			{-stepLength/3, 0, 0},
+			{ 0, 0,  - stepHight},
+			{ stepLength/3, 0, 0}
+		},
+		{
+			{ stepLength/6, -balence_offset, 0},
+			{-stepLength/6, -balence_offset, 0},
+			{-stepLength/2, -balence_offset, 0},
+			{ stepLength/2, -balence_offset, 0}
+		},
+		{
+			{ stepLength/3, 0, 0},
+			{			 0, 0, 0},
+			{-stepLength/3, 0, 0},
+			{ 0, 0,  - stepHight}
+		},
+		{
+			{ stepLength/2, balence_offset, 0},
+			{ stepLength/6, balence_offset, 0},
+			{-stepLength/6, balence_offset, 0},
+			{-stepLength/2, balence_offset, 0}
 		}
 	};
-
-	if(b1.moveto(motion[n], myExchange2.coords, myExchange2.MPU, Speed)) {
-		n++;
-		n *= (n != (sizeof(motion)/96));
-	}
+	byte test = animate(sizeof(motion), goal);
+	memcpy(myExchange2.legCoords, motion[test], sizeof(myExchange2.legCoords));
 }
 
 void loop2(){
@@ -62,11 +83,16 @@ void loop2(){
 		last = millis();
 	#endif
 
-	myExchange2.goal = goal;
+	
+
 
 	myExchange2 = getNewExchange(&myExchange2, true);
 
 	goal = b1.moveto(myExchange2.legCoords, myExchange2.coords, myExchange2.MPU, Speed);
+
+	if (myExchange2.walk[0] != 0){
+		walking(myExchange2.walk[0]);
+	}
 
 	//moveServos();
 

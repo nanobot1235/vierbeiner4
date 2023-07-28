@@ -11,6 +11,7 @@
 	#define tpsPin 18
 
 //Servo OE
+	#define sensePin 36
 	#define setPin 27
 	#define resetPin 26
 
@@ -19,7 +20,7 @@
 #define DebugServo false
 #define DebugLeg false
 #define DebugBody false
-#define DebugCoords false
+#define DebugCoords true
 
 #define Servo90 true
 
@@ -47,8 +48,9 @@
 	#define LegMin  20.0
 	#define LegMax  167.5
 	#define normalHight 150
-	#define stepHight 25
-	#define stepLength 75
+	#define stepHight 37.5
+	//#define stepLength 75
+	#define balence_offset 25
 
 //modes:
 	#define balanceMode 1
