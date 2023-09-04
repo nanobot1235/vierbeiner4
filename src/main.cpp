@@ -28,6 +28,7 @@ double coords[2][3] = {
 
 double walk[3];
 
+
 void setupCore2();
 void senseBalance();
 static void esploop1(void* pvParameters);
